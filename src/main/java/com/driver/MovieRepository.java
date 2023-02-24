@@ -59,13 +59,23 @@ public class MovieRepository {
         }
     }
     public void deleteAllDirectors(){
-        ArrayList<String> list = new ArrayList<>();
-        for(String s: directorMovieMap.keySet()){
-            for(String m : directorMovieMap.get(s)){
-                list.add(m);
+        HashSet<String> moviesSet = new HashSet<String>();
+
+        //Finding out all the movies by all the directors combined
+        for(String dName: directorMovieMap.keySet()){
+
+            //Iterating in the list of movies by a director.
+            for(String movie: directorMovieMap.get(dName)){
+                moviesSet.add(movie);
             }
         }
-        for(String i : list) movieMap.remove(i);
+
+        //Deleting the movie from the movieDb.
+        for(String movie: moviesSet){
+            if(movieMap.containsKey(movie)){
+                movieMap.remove(movie);
+            }
+        }
         directorMap.clear();
         directorMovieMap.clear();
     }

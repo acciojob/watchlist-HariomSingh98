@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 
-@RequestMapping("/movies")
+@RequestMapping("movies")
 
 public class MovieController {
     @Autowired//to create object of service class
@@ -43,22 +43,22 @@ public class MovieController {
         return new ResponseEntity<>(director,HttpStatus.FOUND);
     }
     @GetMapping("get-movies-by-director-name/{director}")
-    public ResponseEntity getMoviesByDirectorName(@PathVariable ("director") String dir){
+    public ResponseEntity<List<String>> getMoviesByDirectorName(@PathVariable ("director") String dir){
         List<String> list = movieServices.getMoviesByDirectorName(dir);
         return new ResponseEntity<>(list,HttpStatus.FOUND);
     }
     @GetMapping("/get-all-movies")
-    public ResponseEntity findAllMovies(){
+    public ResponseEntity<List<String>> findAllMovies(){
         List<String> list = movieServices.findAllMovies();
         return new ResponseEntity<>(list,HttpStatus.FOUND);
     }
     @DeleteMapping("/delete-director-by-name")
-    public ResponseEntity deleteDirectorByName(@RequestParam String dir){
+    public ResponseEntity<String> deleteDirectorByName(@RequestParam String dir){
         movieServices.deleteDirectorByName(dir);
         return new ResponseEntity<>("success",HttpStatus.CREATED);
     }
     @DeleteMapping("/delete-all-directors")
-    public ResponseEntity deleteAllDirectors(){
+    public ResponseEntity<String> deleteAllDirectors(){
         movieServices.deleteAllDirectors();
         return new ResponseEntity<>("success",HttpStatus.CREATED);
     }
