@@ -1,41 +1,49 @@
 package com.driver;
 
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class MovieService {
 
-    @Autowired//to create object of repo class
-    MovieRepository repository;
+    @Autowired
+    MovieRepository movieRepository;
 
     public void addMovie(Movie movie){
-        repository.saveMovie(movie);
+        movieRepository.saveMovie(movie);
     }
+
     public void addDirector(Director director){
-        repository.saveDirector(director);
+        movieRepository.saveDirector(director);
     }
-    public void addMovieDirectorPair(String movieName,String dirName){
-        repository.saveMovieDirectorPair(movieName,dirName);
+
+    public void createMovieDirectorPair(String movie, String director){
+        movieRepository.saveMovieDirectorPair(movie, director);
     }
-    public Movie getMovieByName(String name){
-        return repository.findMovie(name);
+
+    public Movie findMovie(String movieName){
+        return movieRepository.findMovie(movieName);
     }
-    public Director getDirectorByName(String name){
-        return repository.findDirector(name);
+
+    public Director findDirector(String directorName){
+        return movieRepository.findDirector(directorName);
     }
-    public List<String> getMoviesByDirectorName(String name){
-        return repository.findMoviesFromDirector(name);
+
+    public List<String> findMoviesFromDirector(String director){
+        return movieRepository.findMoviesFromDirector(director);
     }
+
     public List<String> findAllMovies(){
-        return repository.findAllMovies();
+        return movieRepository.findAllMovies();
     }
-    public void deleteDirectorByName(String name){
-        repository.deleteDirectorByName(name);
+
+    public void deleteDirector(String director){
+        movieRepository.deleteDirector(director);
     }
+
     public void deleteAllDirectors(){
-        repository.deleteAllDirectors();
+        movieRepository.deleteAllDirector();
     }
 }
